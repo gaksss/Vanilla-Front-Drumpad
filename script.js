@@ -77,19 +77,19 @@ function simulateKey() {
   // Rejoue les frappes enregistrées
   recInput.forEach((input, index) => {
     setTimeout(() => {
-      handlePlaySound({
-        keyCode: input, // Utilise directement le keyCode
-        repeat: false,
-      });
-    }, recTiming[index]); // Utilise le délai correspondant
-    setTimeout(() => {
-      handleKeyUp({
-        keyCode: input, // Utilise directement le keyCode
-        repeat: false,
-      });
+      const newEventKeyDown = new KeyboardEvent("keydown", {keyCode:input})
+      document.dispatchEvent(newEventKeyDown);
+      setTimeout(() => {
+        const newEventKeyUp = new KeyboardEvent("keyup", {keyCode:input})
+      document.dispatchEvent(newEventKeyUp);
+      }, 300);
     }, recTiming[index]); // Utilise le délai correspondant
   });
+
+  
 }
+
+
 
 function togglePlay() {
   if (isPlaying) {

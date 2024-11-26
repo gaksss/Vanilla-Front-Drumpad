@@ -71,13 +71,10 @@ h1 {
   justify-content: space-between;
 }
 #record {
-  
   background: radial-gradient(#ff8f8f, #fc4d4d);
 }
 #play {
-  
   background: radial-gradient(#b5fdb2, #53fc4d);
-
 }
 
 #record span {
