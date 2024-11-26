@@ -3,18 +3,22 @@ document.addEventListener("keyup", handleKeyUp);
 
 function handlePlaySound(event) {
   const key = document.querySelector(`.key[data-key="${event.keyCode}"]`); // permets d'animer les touches
-  const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`); // permets d'appeler l'audio 
-  if (event.repeat) { // empèche le son de se jouer plusieurs fois sans relacher
+  const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`); // permets d'appeler l'audio
+  if (event.repeat) {
+    // empèche le son de se jouer plusieurs fois sans relacher
     return;
   }
-  if (!key) { //limite les touches a celles déclarés dans l'index
+  if (!key) {
+    //limite les touches a celles déclarés dans l'index
+    return;
+  }
+  if (event.keyCode == 80 || event.keyCode == 82) {
     return;
   }
   audio.currentTime = 0; //mets le son a 0 afin de le lancer sans latence
   audio.play(); // lance l'audio
   key.classList.add("playing", "sound"); // ajoute la classe CSS pour animer
 }
-
 
 // FONCTION HANDLE KEYUP qui permets d'enlever la classe css quand la touche est relevée
 function handleKeyUp(event) {
@@ -25,9 +29,7 @@ function handleKeyUp(event) {
   key.classList.remove("playing", "sound");
 }
 
-
-
-// FONCTION QUI PERMETS D'ENREGISTRER LES TOUCHES 
+// FONCTION QUI PERMETS D'ENREGISTRER LES TOUCHES
 document.addEventListener("keydown", handleRec);
 
 let recInput = []; // Stocke les keyCode
@@ -41,7 +43,7 @@ function handleRec(event) {
   if (event.keyCode === 82 && !rec) {
     // Début de l'enregistrement
     const record = document.querySelector("#record");
-    record.classList.add("toggle")
+    record.classList.add("toggle");
     recInput = [];
     recTiming = [];
     console.log("Début enregistrement");
@@ -53,13 +55,13 @@ function handleRec(event) {
     // Enregistre la touche
     recInput.push(event.keyCode);
     const delay = Date.now() - start; // Temps écoulé depuis le début
-    recTiming.push(delay);     // Enregistre le délai
+    recTiming.push(delay); // Enregistre le délai
   }
   if (event.keyCode === 82 && rec) {
     // Fin de l'enregistrement
     rec = false;
     const record = document.querySelector("#record");
-    record.classList.remove("toggle")
+    record.classList.remove("toggle");
     console.log("Enregistrement terminé");
     return;
   }
@@ -67,8 +69,7 @@ function handleRec(event) {
     // Commence ou arrête la lecture en boucle
     togglePlay();
     const play = document.querySelector("#play");
-    play.classList.toggle("toggle")
-    
+    play.classList.toggle("toggle");
   }
 }
 
@@ -80,14 +81,12 @@ function simulateKey() {
         keyCode: input, // Utilise directement le keyCode
         repeat: false,
       });
-      
     }, recTiming[index]); // Utilise le délai correspondant
     setTimeout(() => {
       handleKeyUp({
         keyCode: input, // Utilise directement le keyCode
         repeat: false,
       });
-      
     }, recTiming[index]); // Utilise le délai correspondant
   });
 }
