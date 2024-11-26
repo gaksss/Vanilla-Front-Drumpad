@@ -80,6 +80,14 @@ function simulateKey() {
         keyCode: input, // Utilise directement le keyCode
         repeat: false,
       });
+      
+    }, recTiming[index]); // Utilise le délai correspondant
+    setTimeout(() => {
+      handleKeyUp({
+        keyCode: input, // Utilise directement le keyCode
+        repeat: false,
+      });
+      
     }, recTiming[index]); // Utilise le délai correspondant
   });
 }
